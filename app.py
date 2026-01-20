@@ -27,6 +27,15 @@ def ligar_bd():
         database="efa0125_06_Leonardo_clinica_veterinaria"
     )
 # ---------------------------------------------------
+# Base
+# ---------------------------------------------------
+@app.route("/")
+def base():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+    
+    return render_template("base.html") 
+# ---------------------------------------------------
 # Login
 # ---------------------------------------------------
 

@@ -14,6 +14,10 @@ body {
     background-color: #f4f4f4;
     
 }
+/* Section Navbar */
+.sec-navbar {
+    background-color: #333;
+}
 
 /* Navbar */
 .navbar {
@@ -37,6 +41,9 @@ body {
     display: flex;
     gap: 1.5rem;
 }
+.navbar li {
+    align-self: center;
+}
 
 .navbar ul li a {
     color: white;
@@ -48,36 +55,74 @@ body {
     color: #ff9800;
 }
 
+/* Container do logout */
+.btn-logout {
+    background-color: #444; /* tom mais escuro que a navbar */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    transition: background-color 0.3s;
+}
+
+/* Efeito hover no container */
+.btn-logout:hover {
+    background-color: #555;
+}
+
+/* Link de logout */
+.btn-logout a {
+    color: #ff9800; /* laranja do hover da navbar */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.btn-logout a:hover {
+    color: #ffd180;
+}
+
+/* Parágrafo dentro do botão */
+.btn-logout p {
+    margin: 0;
+}
+
+
 /* Menu responsivo */
 @media (max-width: 768px) {
-.navbar ul {
-    display: none;
-    flex-direction: column;
-    background-color: #333;
-    position: absolute;
-    top: 60px;
-    right: 0;
-    width: 200px;
-    padding: 1rem;
-    border-radius: 4px;
+    .navbar ul {
+        display: none;
+        flex-direction: column;
+        background-color: #333;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        padding: 1rem;
+        border-radius: 4px;
+    }
+
+    .navbar ul.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+        font-size: 1.5rem;
+    }
 }
 
-.navbar ul.active {
-    display: flex;
-}
 
-.menu-toggle {
-    display: block;
-    cursor: pointer;
-    font-size: 1.5rem;
-}
-}
+
+
 
 @media (min-width: 769px) {
-.menu-toggle {
-    display: none;
-}
-
+    .menu-toggle {
+        display: none;
+    }
 }
 .footer {
     background-color: #333;
