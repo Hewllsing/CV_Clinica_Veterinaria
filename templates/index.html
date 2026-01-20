@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinica Veterinária</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Clinica Veterinária</div>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <ul id="nav-links">
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Sobre</a></li>
+
+        </ul>
+    </nav>
+
+
+    {% block content %} {% endblock %} <!-- Traz corpos html para renderizar aqui -->
+
+
+
+    <footer class="footer">
+    <div class="footer-container">
+        <ul class="footer-links">
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Sobre</a></li>
+        </ul>
+        <p class="footer-copy">© 2026 Clinica Veterinária 
+            <br> Projeto de Python Avançado.
+        </p>
+    </div>
+</footer>
+
+
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('nav-links');
+            nav.classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+</body>
+</html>
