@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt">
+
+<head>
+    <meta charset="utf-8">
+
+    <!-- O título da página é dinâmico e recebido pelo Flask -->
+    <title>Registrar</title> <!-- Para ficar dinamico {{ titulo }} -->
+
+
+    <!-- Link para o CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/login.css') }}">
+</head>
+
+<body>
+    <div class="registrar-usuario-form">
+
+        <h1>Registrar</h1>
+
+        {% with msgs = get_flashed_messages() %}
+        {% if msgs %}
+        <ul>
+            {% for m in msgs %}
+            <li> {{ m }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+        <form method="post">
+
+            <p>
+                Utilizador:<br>
+                <input type="text" name="username" required value="{{ login.username if login else '' }}">
+            </p>
+
+            <p>
+                Senha:<br>
+                <input type="password" name="password" required>
+            </p>
+
+            <p>
+                Role:<br>
+                <input type="text" name="role" required>
+            </p>
+
+            <button type="submit">Cadastrar</button>
+            <a href="/">Cancelar</a>
+
+        </form>
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+/* =========================
+   FORMULÁRIO CLIENTES
+   ========================= */
+
+.clientes-form {
+    max-width: 600px;
+    margin-top: 2rem;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+.clientes-form h1 {
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+/* Grupo */
+.clientes-form .form-group {
+    margin-bottom: 1rem;
+}
+
+/* Labels */
+.clientes-form label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+    color: #444;
+}
+
+/* Inputs */
+.clientes-form input {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 0.9rem;
+}
+
+/* Focus */
+.clientes-form input:focus {
+    outline: none;
+    border-color: #2196f3;
+}
+
+/* Ações */
+.clientes-form .form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* Botão */
+.clientes-form button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.clientes-form button:hover {
+    background-color: #555;
+}
+
+/* Link cancelar */
+.clientes-form a {
+    color: #777;
+    text-decoration: none;
+    align-self: center;
+}
+
+.clientes-form a:hover {
+    text-decoration: underline;
+}

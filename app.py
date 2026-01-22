@@ -35,6 +35,8 @@ def base():
         return redirect(url_for("login"))
     
     return render_template("base.html") 
+
+
 # ---------------------------------------------------
 # Login
 # ---------------------------------------------------
@@ -62,6 +64,7 @@ def login():
             session["user_id"] = user["id"]
             session["username"] = user["username"]
             session["user_role"] = user["role"]
+            session["password"] = user["password"]
             return redirect(url_for("base"))
         else:
             flash("Username ou password incorretos.")
@@ -78,13 +81,244 @@ def logout():
     session.clear()  # Limpar sessão
     return redirect(url_for("login"))
 
+# ---------------------------------------------------
+# Editar users (conta de acesso)
+# ---------------------------------------------------
+
+@app.route("/editar_users<int:id>", methods=["GET", "POST"]) # USUARIO E ROLE
+def editar_users(id):
+    # Proteger a página
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    cnx = ligar_bd()
+    cursor = cnx.cursor(dictionary=True)
+
+    if request.method == "POST":
+        username = request.form["username"]
+        role = request.form["role"]
+
+        # Atualizar dados no banco
+        cursor2 = cnx.cursor()
+        cursor2.execute(
+            "UPDATE login SET username = %s, role = %s WHERE id = %s", 
+            (username, role, id)
+        )
+        cnx.commit()
+        cursor2.close()
+
+        cursor.close()
+        cnx.close()
+        return redirect("/")
+
+    # Se GET, buscar dados do utilizador para preencher o formulário
+    cursor.execute("SELECT id, username, role FROM users WHERE id = %s", (id,))
+    usuarios = cursor.fetchone()
+
+    cursor.close()
+    cnx.close()
+
+    return render_template("admin/editar_users.html", usuarios=usuarios)
+
+
+@app.route("/trocar_password/<int:id>", methods=["GET", "POST"])
+def trocar_password(id):
+    # Proteger a página
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    cnx = ligar_bd()
+    cursor = cnx.cursor(dictionary=True)
+
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        role = request.form["role"]
+
+        cursor.execute(
+            """
+            UPDATE users 
+            SET username = %s, password = %s, role = %s 
+            WHERE id = %s
+            """,
+            (username, password, role, id)
+        )
+
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+
+        return redirect("/")
+
+    # GET - buscar dados do utilizador
+    cursor.execute(
+        "SELECT id, username, role FROM users WHERE id = %s",
+        (id,)
+    )
+    usuarios = cursor.fetchone()
+
+    cursor.close()
+    cnx.close()
+
+    return render_template("users/trocar_password.html", usuarios=usuarios )
 
 
 
 
+# ---------------------------------------------------
+# Editar dados do cliente
+# ---------------------------------------------------
+
+@app.route("/editar_clientes/<int:id>", methods=["GET", "POST"])
+def editar_cliente(id):
+    # Proteger a página
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    cnx = ligar_bd()
+    cursor = cnx.cursor(dictionary=True)
+
+    if request.method == "POST":
+        nome = request.form["nome"]
+        email = request.form["email"]
+        telefone = request.form["telefone"]
+        morada = request.form["morada"]
+
+        # Atualizar dados no banco
+        cursor2 = cnx.cursor()
+        cursor2.execute(
+            "UPDATE clientes SET nome = %s, email = %s, telefone = %s, morada = %s WHERE id = %s", 
+            (nome, email, telefone, morada, id)
+        )
+        cnx.commit()
+        cursor2.close()
+
+        cursor.close()
+        cnx.close()
+        return redirect("/")
+
+    # Se GET, buscar dados do utilizador para preencher o formulário
+    cursor.execute("SELECT id, nome, email, telefone, morada FROM clientes WHERE id = %s", (id,))
+    cliente = cursor.fetchone()
+
+    cursor.close()
+    cnx.close()
+
+    return render_template("admin/editar_clientes.html", titulo="Editar clientes", cliente=cliente)
 
 
 
+# ---------------------------------------------------
+# Acesso a tabela de Clientes
+# ---------------------------------------------------
+
+@app.route("/tabela_clientes")
+def tabela_clientes():
+    # Proteger a página: só permite acesso se o utilizador estiver logado
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    # Conectar à base de dados
+    cnx = ligar_bd()
+    cursor = cnx.cursor(dictionary=True)
+
+    # Buscar todos os utilizadores
+    cursor.execute("SELECT id, nome, email, telefone, morada, created_at FROM clientes ORDER BY id ASC")
+    clientes = cursor.fetchall()
+
+    # Fechar cursor e conexão
+    cursor.close()
+    cnx.close()
+
+    # Renderizar o template com os utilizadores
+    return render_template("admin/tabela_clientes.html", clientes=clientes)
+
+
+# ---------------------------------------------------
+# Inserir novo utilizador
+# ---------------------------------------------------
+@app.route("/registrar_novo_utilizador", methods=["GET", "POST"])
+def registrar_novo_utilizador():
+    
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        role = request.form.get("role")
+
+        if not username or not password or not role:
+            flash("Preencha todos os campos!")
+            return redirect(url_for("registrar_novo_utilizador"))
+
+        # Conectar ao banco
+        cnx = ligar_bd()
+        cursor = cnx.cursor()
+
+        # Verificar se o usuário já existe
+        cursor.execute(
+            "SELECT id FROM users WHERE username = %s", (username,)
+        )
+        existe = cursor.fetchone()
+
+        if existe:
+            flash("Este nome de usuário já está em uso!")
+            cursor.close()
+            cnx.close()
+            return redirect(url_for("registrar_novo_utilizador"))
+
+        # Inserir novo usuário
+        cursor.execute(
+            "INSERT INTO users (username, password, role) VALUES (%s, %s, %s)",
+            (username, password, role)
+        )
+        cnx.commit()
+
+        cursor.close()
+        cnx.close()
+
+        flash("Conta criada com sucesso! Faça login.")
+        return redirect(url_for("login"))
+
+    return render_template("admin/registrar_novo_utilizador.html")
+
+
+# ---------------------------------------------------
+# Deleta dados do cliente
+# ---------------------------------------------------
+@app.route("/apagar/<int:id>", methods=["POST"])
+def deleta_utilizador(id):
+    # Proteger a página
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    cnx = ligar_bd()
+    cursor = cnx.cursor()
+
+    # Apagar pelo ID
+    cursor.execute("DELETE FROM clientes WHERE id = %s", (id,))
+    cnx.commit()
+
+    cursor.close()
+    cnx.close()
+
+    return redirect("/")
+
+
+
+# ---------------------------------------------------
+# Consultar os dados do utilizador
+# ---------------------------------------------------
+@app.route("/meus_dados")
+def meus_dados():
+    if "user_id" not in session:
+        return redirect(url_for("login")) 
+
+    return render_template(
+        "users/meus_dados.html",
+        titulo="Meus dados do utilizador",
+        username=session.get("username"),
+        role=session.get("user_role"),
+        user_id=session.get("user_id")  
+    )
 
 
 

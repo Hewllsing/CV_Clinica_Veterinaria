@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='cliente/meus_dados.css') }}">
+
+<div class="perfil-usuario">
+
+    <h1>{{ titulo }}</h1>
+
+    {% if "user_id" in session %}
+    <p>
+        Utilizador: {{ session.username }}<br>
+        Password: ********<br>
+        Role: {{ session.user_role }}<br>
+    </p>
+
+    <form action="{{ url_for('trocar_password', id=user_id) }}" method="get">
+        <button type="submit">Editar</button>
+    </form>
+    {% endif %}
+
+</div>
+
+
+{% endblock %}

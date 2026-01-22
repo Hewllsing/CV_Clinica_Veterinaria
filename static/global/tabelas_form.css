@@ -1,0 +1,91 @@
+/* =========================
+   TABELA CLIENTES (SEM CONFLITO)
+   ========================= */
+
+.clientes-table {
+    margin-top: 1.5rem;
+}
+
+/* Título */
+.clientes-table h1 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.6rem;
+}
+
+/* Tabela */
+.clientes-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Cabeçalho */
+.clientes-table th {
+    background-color: #333;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+/* Células */
+.clientes-table td {
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 0.9rem;
+}
+
+/* Linhas alternadas */
+.clientes-table tr:nth-child(even) {
+    background-color: #f7f7f7;
+}
+
+/* Hover */
+.clientes-table tr:hover {
+    background-color: #eee;
+}
+
+/* Coluna de ações */
+.clientes-table td:last-child {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Links */
+.clientes-table a {
+    color: #2196f3;
+    text-decoration: none;
+    font-weight: bold;
+    align-self: center;
+}
+
+.clientes-table a:hover {
+    text-decoration: underline;
+}
+
+/* Botão apagar */
+.clientes-table button {
+    background-color: #e53935;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background-color 0.3s;
+}
+
+.clientes-table button:hover {
+    background-color: #c62828;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+    .clientes-table td:last-child {
+        flex-direction: column;
+    }
+}

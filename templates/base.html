@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clinica Veterinária</title>
 
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/global/style.css">
 
 
 </head>
@@ -15,8 +15,11 @@
             <div class="logo">Clinica Veterinária</div>
             <div class="menu-toggle" onclick="toggleMenu()">☰</div>
             <ul id="nav-links">
-                <li><a href="#">Início</a></li>
-                <li><a href="#">Sobre</a></li>
+                <li><a href="{{ url_for('registrar_novo_utilizador') }}">Novo utilizador</a></li>
+                <li><a href="{{ url_for('tabela_clientes') }}">Tabela Clientes</a></li>
+                <li><a href="{{ url_for('meus_dados') }}">Meus dados</a></li>
+
+
                 <section class="btn-logout">
                     {% if "user_id" in session %}
                         <p>
@@ -26,8 +29,6 @@
                         </p>
                     {% endif %}
                 </section>
-
-
             </ul>
         </nav>
     </section>
@@ -41,8 +42,8 @@
     <footer class="footer">
     <div class="footer-container">
         <ul class="footer-links">
-            <li><a href="#">Início</a></li>
-            <li><a href="#">Sobre</a></li>
+            <li><a href="{{ url_for('registrar_novo_utilizador') }}">Novo utilizador</a></li>
+            <li><a href="{{ url_for('tabela_clientes') }}">Tabela Clientes</a></li>
         </ul>
         <p class="footer-copy">© 2026 Clinica Veterinária 
             <br> Projeto de Python Avançado.
