@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %} 
+
+<link rel="stylesheet" href="{{ url_for('static', filename='global/tabelas_form.css') }}">
+
+<div class="clientes-table">
+
+    <!-- Título principal da página -->
+    <h1>Lista de Clientes</h1>
+
+    <!-- Tabela que apresenta os utilizadores vindos da base de dados -->
+    <table>
+        <tr>
+            <!-- Cabeçalho da tabela -->
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Especia</th>
+            <th>Raça</th>
+            <th>Data de nascimento</th>
+            <th>Ações</th>
+        </tr>
+
+        <!-- Loop Jinja2 que percorre todos os utilizadores enviados pelo Flask -->
+        {% for a in animais %}
+        <tr>
+            <td>{{ a.id }}</td>
+            <td>{{ a.nome }}</td>
+            <td>{{ a.especie }}</td>
+            <td>{{ a.raca }}</td>
+            <td>{{ a.data_nascimento }}</td>
+            
+            <!-- Coluna das ações -->
+            <td>
+                {% if session["user_role"] == "admin" %}
+
+                    <a href="/editar_animal/{{ a.id }}">Editar</a>
+
+                    <form action="/deleta_animal/{{ a.id }}" method="post">
+                        <button type="submit">Apagar</button>
+                    </form>
+
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
+{% endblock %}

@@ -14,31 +14,29 @@
         <tr>
             <!-- Cabeçalho da tabela -->
             <th>Id</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Telefone</th>
-            <th>Morada</th>
+            <th>Data e hora</th>
+            <th>Motivo</th>
+            <th>Notas</th>
             <th>Criado em</th>
             <th>Ações</th>
         </tr>
 
         <!-- Loop Jinja2 que percorre todos os utilizadores enviados pelo Flask -->
-        {% for c in clientes %}
+        {% for c in consultas %}
         <tr>
             <td>{{ c.id }}</td>
-            <td>{{ c.nome }}</td>
-            <td>{{ c.email }}</td>
-            <td>{{ c.telefone }}</td>
-            <td>{{ c.morada }}</td>
+            <td>{{ c.data_hora }}</td>
+            <td>{{ c.motivo }}</td>
+            <td>{{ c.notas }}</td>
             <td>{{ c.created_at }}</td>
             
             <!-- Coluna das ações -->
             <td>
                 {% if session["user_role"] == "admin" %}
 
-                    <a href="/editar_clientes/{{ c.id }}">Editar</a>
+                    <a href="/editar_consulta/{{ c.id }}">Editar</a>
 
-                    <form action="/editar_clientes/{{ c.id }}" method="post">
+                    <form action="/deleta_consulta/{{ c.id }}" method="post">
                         <button type="submit">Apagar</button>
                     </form>
 

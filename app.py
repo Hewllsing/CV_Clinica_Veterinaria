@@ -169,7 +169,7 @@ def trocar_password(id):
 # Editar dados do cliente
 # ---------------------------------------------------
 
-@app.route("/editar_clientes/<int:id>", methods=["GET", "POST"])
+@app.route("/editar_cliente/<int:id>", methods=["GET", "POST"])
 def editar_cliente(id):
     # Proteger a página
     if "user_id" not in session:
@@ -209,6 +209,93 @@ def editar_cliente(id):
 
 
 # ---------------------------------------------------
+# Editar dados do Animal
+# ---------------------------------------------------
+
+@app.route("/editar_animal/<int:id>", methods=["GET", "POST"])
+def editar_animal(id):
+    # Proteger a página
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    cnx = ligar_bd()
+    cursor = cnx.cursor(dictionary=True)
+
+    if request.method == "POST":
+        nome = request.form["nome"]
+        especie = request.form["especie"]
+        raca = request.form["raca"]
+        data_nascimento = request.form["data_nascimento"]
+
+        # Atualizar dados no banco
+        cursor2 = cnx.cursor()
+        cursor2.execute(
+            "UPDATE animais SET nome = %s, especie = %s, raca = %s, data_nascimento = %s WHERE id = %s", 
+            (nome, especie, raca, data_nascimento, id)
+        )
+        cnx.commit()
+        cursor2.close()
+
+        cursor.close()
+        cnx.close()
+        return redirect("/")
+
+    # Se GET, buscar dados do utilizador para preencher o formulário
+    cursor.execute("SELECT id, nome, especie, raca, data_nascimento FROM animais WHERE id = %s", (id,))
+    animal = cursor.fetchone()
+
+    cursor.close()
+    cnx.close()
+
+    return render_template("staff/editar_animais.html", titulo="Editar animal", animal=animal)
+
+
+
+
+# ---------------------------------------------------
+# Editar dados da Consulta
+# ---------------------------------------------------
+
+@app.route("/editar_consulta/<int:id>", methods=["GET", "POST"])
+def editar_consulta(id):
+    # Proteger a página
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    cnx = ligar_bd()
+    cursor = cnx.cursor(dictionary=True)
+
+    if request.method == "POST":
+        data_hora = request.form["data_hora"]
+        motivo = request.form["motivo"]
+        notas = request.form["notas"]
+
+        # Atualizar dados no banco
+        cursor2 = cnx.cursor()
+        cursor2.execute(
+            "UPDATE consultas SET data_hora = %s, motivo = %s, notas = %s WHERE id = %s", 
+            (data_hora, motivo, notas, id)
+        )
+        cnx.commit()
+        cursor2.close()
+
+        cursor.close()
+        cnx.close()
+        return redirect("/")
+
+    # Se GET, buscar dados do utilizador para preencher o formulário
+    cursor.execute("SELECT id, data_hora, motivo, notas FROM consultas WHERE id = %s", (id,))
+    consulta = cursor.fetchone()
+
+    cursor.close()
+    cnx.close()
+
+    return render_template("staff/editar_consulta.html", titulo="Editar consulta", consulta=consulta)
+
+
+
+
+# ---------------------------------------------------
 # Acesso a tabela de Clientes
 # ---------------------------------------------------
 
@@ -231,7 +318,61 @@ def tabela_clientes():
     cnx.close()
 
     # Renderizar o template com os utilizadores
-    return render_template("admin/tabela_clientes.html", clientes=clientes)
+    return render_template("staff/tabela_clientes.html", clientes=clientes)
+
+
+
+# ---------------------------------------------------
+# Acesso a tabela de Animais
+# ---------------------------------------------------
+
+@app.route("/tabela_animais")
+def tabela_animais():
+    # Proteger a página: só permite acesso se o utilizador estiver logado
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    # Conectar à base de dados
+    cnx = ligar_bd()
+    cursor = cnx.cursor(dictionary=True)
+
+    # Buscar todos os utilizadores
+    cursor.execute("SELECT id, nome, especie, raca, data_nascimento FROM animais ORDER BY id ASC")
+    animais = cursor.fetchall()
+
+    # Fechar cursor e conexão
+    cursor.close()
+    cnx.close()
+
+    # Renderizar o template com os utilizadores
+    return render_template("staff/tabela_animais.html", animais=animais)
+
+
+# ---------------------------------------------------
+# Acesso a tabela de Consultas
+# ---------------------------------------------------
+
+@app.route("/tabela_consultas")
+def tabela_consultas():
+    # Proteger a página: só permite acesso se o utilizador estiver logado
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    # Conectar à base de dados
+    cnx = ligar_bd()
+    cursor = cnx.cursor(dictionary=True)
+
+    # Buscar todos os utilizadores
+    cursor.execute("SELECT id, data_hora, motivo, notas, created_at FROM consultas ORDER BY id ASC")
+    consultas = cursor.fetchall()
+
+    # Fechar cursor e conexão
+    cursor.close()
+    cnx.close()
+
+    # Renderizar o template com os utilizadores
+    return render_template("staff/tabela_consultas.html", consultas=consultas)
+
 
 
 # ---------------------------------------------------
@@ -275,8 +416,8 @@ def registrar_novo_utilizador():
         cursor.close()
         cnx.close()
 
-        flash("Conta criada com sucesso! Faça login.")
-        return redirect(url_for("login"))
+        flash("Conta criada com sucesso!")
+        return redirect(url_for("base"))
 
     return render_template("admin/registrar_novo_utilizador.html")
 
@@ -284,8 +425,8 @@ def registrar_novo_utilizador():
 # ---------------------------------------------------
 # Deleta dados do cliente
 # ---------------------------------------------------
-@app.route("/apagar/<int:id>", methods=["POST"])
-def deleta_utilizador(id):
+@app.route("/deleta_cliente/<int:id>", methods=["POST"])
+def deleta_cliente(id):
     # Proteger a página
     if "user_id" not in session:
         return redirect(url_for("login"))
@@ -300,7 +441,57 @@ def deleta_utilizador(id):
     cursor.close()
     cnx.close()
 
-    return redirect("/")
+    return redirect(url_for("tabela_clientes"))
+
+
+# ---------------------------------------------------
+# Deleta dados do Animal
+# ---------------------------------------------------
+@app.route("/deleta_animal/<int:id>", methods=["POST"])
+def deleta_animal(id):
+    # Proteger a página
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    cnx = ligar_bd()
+    cursor = cnx.cursor()
+
+    # Apagar pelo ID
+    cursor.execute("DELETE FROM animais WHERE id = %s", (id,))
+    cnx.commit()
+
+    cursor.close()
+    cnx.close()
+
+    return redirect(url_for("tabela_animais"))
+
+
+
+# ---------------------------------------------------
+# Deleta consulta
+# ---------------------------------------------------
+@app.route("/deleta_consulta/<int:id>", methods=["POST"])
+def deleta_consulta(id):
+
+    if "user_id" not in session or session.get("user_role") != "admin":
+        flash("Acesso não autorizado.")
+        return redirect(url_for("login"))
+
+    cnx = ligar_bd()
+    cursor = cnx.cursor()
+
+    cursor.execute(
+        "DELETE FROM consultas WHERE id = %s",
+        (id,)
+    )
+    cnx.commit()
+
+    cursor.close()
+    cnx.close()
+
+    flash("Consulta apagada com sucesso.")
+    return redirect(url_for("tabela_consultas"))
+
 
 
 
