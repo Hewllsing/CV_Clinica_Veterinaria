@@ -84,6 +84,10 @@ def logout():
 # ---------------------------------------------------
 # Editar users (conta de acesso)
 # ---------------------------------------------------
+@app.context_processor
+def coleta_user_role(): # Coleta o a role do usuario da sessão e distribui em todos os templates
+    return dict(user_role=session.get("user_role"))
+
 
 @app.route("/editar_users<int:id>", methods=["GET", "POST"]) # USUARIO E ROLE
 def editar_users(id):
@@ -321,6 +325,32 @@ def tabela_clientes():
     return render_template("staff/tabela_clientes.html", clientes=clientes)
 
 
+# ---------------------------------------------------
+# Acesso a tabela de Utilizadores
+# ---------------------------------------------------
+
+@app.route("/tabela_utilizadores")
+def tabela_utilizadores():
+    # Proteger a página: só permite acesso se o utilizador estiver logado
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    # Conectar à base de dados
+    cnx = ligar_bd()
+    cursor = cnx.cursor(dictionary=True)
+
+    # Buscar todos os utilizadores
+    cursor.execute("SELECT id, username, role, created_at FROM users ORDER BY id ASC")
+    utilizadores = cursor.fetchall()
+
+    # Fechar cursor e conexão
+    cursor.close()
+    cnx.close()
+
+    # Renderizar o template com os utilizadores
+    return render_template("admin/tabela_utilizadores.html", utilizadores=utilizadores)
+
+
 
 # ---------------------------------------------------
 # Acesso a tabela de Animais
@@ -422,6 +452,55 @@ def registrar_novo_utilizador():
     return render_template("admin/registrar_novo_utilizador.html")
 
 
+
+# ---------------------------------------------------
+# Inserir novo Cliente
+# ---------------------------------------------------
+@app.route("/registrar_novo_cliente", methods=["GET", "POST"])
+def registrar_novo_cliente():
+    
+    if request.method == "POST":
+        nome = request.form.get("nome")
+        email = request.form.get("email")
+        telefone = request.form.get("telefone")
+        morada = request.form.get("morada")
+
+        if not nome or not email or not telefone or not morada:
+            flash("Preencha todos os campos!")
+            return redirect(url_for("registrar_novo_cliente"))
+
+        # Conectar ao banco
+        cnx = ligar_bd()
+        cursor = cnx.cursor()
+
+        # Verificar se o cliente ja existe
+        cursor.execute(
+            "SELECT id FROM clientes WHERE email = %s", (email,)
+        )
+        existe = cursor.fetchone()
+
+        if existe:
+            flash("Este cliente já está cadastrado!")
+            cursor.close()
+            cnx.close()
+            return redirect(url_for("registrar_novo_cliente"))
+
+        # Inserir novo cliente
+        cursor.execute(
+            "INSERT INTO clientes (nome, email, telefone, morada) VALUES (%s, %s, %s, %s)",
+            (nome, email, telefone, morada)
+        )
+        cnx.commit()
+
+        cursor.close()
+        cnx.close()
+
+        flash("Cliente criado com sucesso!")
+        return redirect(url_for("base"))
+
+    return render_template("staff/registrar_novo_cliente.html")
+
+
 # ---------------------------------------------------
 # Deleta dados do cliente
 # ---------------------------------------------------
@@ -443,6 +522,28 @@ def deleta_cliente(id):
 
     return redirect(url_for("tabela_clientes"))
 
+
+
+# ---------------------------------------------------
+# Deleta dados do Utilizador
+# ---------------------------------------------------
+@app.route("/deleta_utilizador/<int:id>", methods=["POST"])
+def deleta_utilizador(id):
+    # Proteger a página
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    cnx = ligar_bd()
+    cursor = cnx.cursor()
+
+    # Apagar pelo ID
+    cursor.execute("DELETE FROM users WHERE id = %s", (id,))
+    cnx.commit()
+
+    cursor.close()
+    cnx.close()
+
+    return redirect(url_for("tabela_utilizadores"))
 
 # ---------------------------------------------------
 # Deleta dados do Animal
@@ -491,7 +592,6 @@ def deleta_consulta(id):
 
     flash("Consulta apagada com sucesso.")
     return redirect(url_for("tabela_consultas"))
-
 
 
 

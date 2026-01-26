@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block content %} 
+{% block content %}
 
 <link rel="stylesheet" href="{{ url_for('static', filename='global/tabelas_form.css') }}">
 
@@ -31,17 +31,17 @@
             <td>{{ c.telefone }}</td>
             <td>{{ c.morada }}</td>
             <td>{{ c.created_at }}</td>
-            
+
             <!-- Coluna das ações -->
             <td>
-                {% if session["user_role"] == "admin" %}
+                {% if session["user_role"] == "admin" or session["user_role"] == "staff"%}
 
-                    <a href="/editar_cliente/{{ c.id }}">Editar</a>
-
+                <a href="/editar_cliente/{{ c.id }}">Editar</a>
+                    {% if session["user_role"] == "admin" %}
                     <form action="/deleta_cliente/{{ c.id }}" method="post">
                         <button type="submit">Apagar</button>
                     </form>
-
+                    {% endif %}
                 {% endif %}
             </td>
         </tr>

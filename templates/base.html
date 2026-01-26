@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,25 +10,47 @@
 
 
 </head>
+
 <body>
     <section class="sec-navbar">
         <nav class="navbar">
             <div class="logo">Clinica Veterinária</div>
             <div class="menu-toggle" onclick="toggleMenu()">☰</div>
             <ul id="nav-links">
-                <li><a href="{{ url_for('registrar_novo_utilizador') }}">Novo utilizador</a></li>
-                <li><a href="{{ url_for('tabela_clientes') }}">Tabela Clientes</a></li>
-                <li><a href="{{ url_for('meus_dados') }}">Meus dados</a></li>
-                <li><a href="{{ url_for('tabela_animais') }}">Tabela animais</a></li>
-                <li><a href="{{ url_for('tabela_consultas') }}">Tabela Consultas</a></li>
+                <!-- ADMIN E STAFF-->
 
+                {% if user_role == 'admin' or user_role == 'staff' %}
+
+                    {% if user_role == 'admin' %}
+                    <li><a href="{{ url_for('registrar_novo_utilizador') }}">Novo utilizador</a></li>
+                    <li><a href="{{ url_for('tabela_utilizadores') }}">Utilizadores</a></li>
+                    {% endif %}
+
+                <li><a href="{{ url_for('registrar_novo_cliente') }}">Novo cliente</a></li>
+                <li><a href="{{ url_for('tabela_clientes') }}">Clientes</a></li>
+                <li><a href="{{ url_for('tabela_animais') }}">Animais</a></li>
+                <li><a href="{{ url_for('tabela_consultas') }}">Consultas</a></li>
+                <li><a href="{{ url_for('meus_dados') }}">Meus dados</a></li>
+
+                {% endif %}
+
+
+                <!-- CLIENTES -->
+                {% if user_role == 'cliente' %}
+                <li><a href="#">Adicionar animal</a></li>
+                <li><a href="#">Marcar consulta</a></li>
+
+                <li><a href="#">Meus animais</a></li>
+                <li><a href="#">Minhas consultas</a></li>
+                <li><a href="{{ url_for('meus_dados') }}">Meus dados</a></li>
+                {% endif %}
                 <section class="btn-logout">
                     {% if "user_id" in session %}
-                        <p>
-                            Logged: {{ session.username }}<br>
-                            Role: {{ session.user_role }}<br>
-                            <a href="{{ url_for('logout') }}">Logout</a>
-                        </p>
+                    <p>
+                        Logged: {{ session.username }}<br>
+                        Role: {{ session.user_role }}<br>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </p>
                     {% endif %}
                 </section>
             </ul>
@@ -41,16 +64,15 @@
 
 
     <footer class="footer">
-    <div class="footer-container">
-        <ul class="footer-links">
-            <li><a href="{{ url_for('registrar_novo_utilizador') }}">Novo utilizador</a></li>
-            <li><a href="{{ url_for('tabela_clientes') }}">Tabela Clientes</a></li>
-        </ul>
-        <p class="footer-copy">© 2026 Clinica Veterinária 
-            <br> Projeto de Python Avançado.
-        </p>
-    </div>
-</footer>
+        <div class="footer-container">
+            <ul class="footer-links">
+                
+            </ul>
+            <p class="footer-copy">© 2026 Clinica Veterinária
+                <br> Projeto de Python Avançado.
+            </p>
+        </div>
+    </footer>
 
 
 
@@ -62,6 +84,7 @@
     </script>
 
 </body>
+
 </html>
 
 
@@ -69,4 +92,5 @@
 
 
 </body>
+
 </html>

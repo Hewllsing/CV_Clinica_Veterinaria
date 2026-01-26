@@ -7,7 +7,7 @@
 <div class="clientes-table">
 
     <!-- Título principal da página -->
-    <h1>Lista de Clientes</h1>
+    <h1>Minhas consultas</h1>
 
     <!-- Tabela que apresenta os utilizadores vindos da base de dados -->
     <table>
@@ -32,17 +32,13 @@
 
             <!-- Coluna das ações -->
             <td>
-                {% if session["user_role"] == "admin" or session["user_role"] == "staff"%}
 
                 <a href="/editar_consulta/{{ c.id }}">Editar</a>
 
-                    {% if session["user_role"] == "admin" %}
-                    <form action="/deleta_consulta/{{ c.id }}" method="post">
-                        <button type="submit">Apagar</button>
-                    </form>
-                    {% endif %}
+                <form action="/deleta_consulta/{{ c.id }}" method="post">
+                    <button type="submit">Apagar</button>
+                </form>
 
-                {% endif %}
             </td>
         </tr>
         {% endfor %}
