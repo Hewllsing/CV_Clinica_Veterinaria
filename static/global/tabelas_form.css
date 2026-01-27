@@ -67,9 +67,17 @@
     text-decoration: underline;
 }
 
+.add-animal {
+    background-color: #2164f3;
+}
+.add-consulta {
+    background-color: #ec9110;
+}
+.btn-apagar {
+    background-color: #c62828;
+}
 /* Botão apagar */
 .clientes-table button {
-    background-color: #e53935;
     color: white;
     border: none;
     padding: 6px 10px;
@@ -81,6 +89,7 @@
 
 .clientes-table button:hover {
     background-color: #c62828;
+    border-color: #333;
 }
 
 /* Responsivo */
@@ -89,3 +98,6 @@
         flex-direction: column;
     }
 }
+
+
+

@@ -37,9 +37,20 @@
                 {% if session["user_role"] == "admin" or session["user_role"] == "staff"%}
 
                 <a href="/editar_cliente/{{ c.id }}">Editar</a>
+
+                        {% if session["user_role"] == 'staff' %}
+                            <form action="//{{ c.id }}" method="post">
+                                <button type="submit" class="add-animal">Novo Animal</button>
+                            </form>
+
+                            <form action="//{{ c.id }}" method="post">
+                                <button type="submit" class="add-consulta">Nova Consulta</button>
+                            </form>
+                        {% endif %}
+
                     {% if session["user_role"] == "admin" %}
                     <form action="/deleta_cliente/{{ c.id }}" method="post">
-                        <button type="submit">Apagar</button>
+                        <button type="submit" class="btn-apagar">Apagar</button>
                     </form>
                     {% endif %}
                 {% endif %}
