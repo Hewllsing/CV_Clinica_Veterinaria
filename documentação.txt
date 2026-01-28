@@ -1,0 +1,143 @@
+Documentação do Sistema Clínica Veterinária
+
+1. Visão Geral
+
+O sistema permite gerenciar uma clínica veterinária, contemplando:
+
+Cadastro de clientes e seus animais
+
+Registro de consultas veterinárias
+
+Gestão de usuários com diferentes roles (admin, staff, cliente)
+
+Área do cliente para visualizar seus animais e consultas
+
+Funcionalidades CRUD completas (Create, Read, Update, Delete)
+
+O backend é feito em Python com Flask e o banco de dados em MySQL.
+
+
+2. Estrutura de Pastas
+clinica_veterinaria/
+│
+├── app.py                    # Código principal do Flask
+├── templates/                # Templates HTML (Jinja2)
+│   ├── base.html
+│   ├── users/
+│   │   ├── login.html
+│   │   ├── meus_dados.html
+│   │   └── trocar_password.html
+│   ├── staff/
+│   │   ├── tabela_clientes.html
+│   │   ├── tabela_animais.html
+│   │   └── editar_animais.html
+│   ├── admin/
+│   │   ├── tabela_utilizadores.html
+│   │   ├── registrar_novo_utilizador.html
+│   │   └── editar_users.html
+│   └── cliente/
+│       ├── minha_area.html
+│       ├── nova_consulta.html
+│       └── novo_animal.html
+│
+└── static/                   # Arquivos CSS, JS e imagens
+
+
+3. Modelos de Dados (MySQL)
+
+Tabela users
+Coluna	Tipo	Descrição
+id	INT PK	ID do usuário
+username	VARCHAR	Nome de usuário
+password	VARCHAR	Senha
+role	VARCHAR	Papel: admin, staff, cliente
+cliente_id	INT FK	ID do cliente (para clientes)
+created_at	DATETIME	Data de criação
+
+Tabela clientes
+Coluna	Tipo	Descrição
+id	INT PK	ID do cliente
+nome	VARCHAR	Nome do cliente
+email	VARCHAR	Email do cliente
+telefone	VARCHAR	Telefone
+morada	VARCHAR	Morada do cliente
+created_at	DATETIME	Data de cadastro
+
+Tabela animais
+Coluna	Tipo	Descrição
+id	INT PK	ID do animal
+cliente_id	INT FK	ID do cliente proprietário
+nome	VARCHAR	Nome do animal
+especie	VARCHAR	Espécie
+raca	VARCHAR	Raça
+data_nascimento	DATE	Data de nascimento
+
+Tabela consultas
+Coluna	Tipo	Descrição
+id	INT PK	ID da consulta
+animal_id	INT FK	Animal atendido
+data_hora	DATETIME	Data e hora da consulta
+motivo	TEXT	Motivo da consulta
+notas	TEXT	Observações do veterinário
+created_at	DATETIME	Data de registro
+
+
+4. Rotas e Funcionalidades
+4.1 Autenticação
+
+Rota	Método	Descrição
+/login	GET/POST	Login de usuário
+/logout	GET	Logout e limpeza da sessão
+/meus_dados	GET	Mostra informações do usuário logado
+
+
+4.2 Área do Cliente
+
+Rota	Método	Descrição
+/minha_area	GET	Mostra info do usuário, cliente, animais e consultas
+/clientes/<id>/novo_animal	GET/POST	Registra um novo animal para o cliente
+/clientes/<id>/nova_consulta	GET/POST	Registra uma nova consulta para os animais do cliente
+
+
+4.3 Gestão de Clientes
+
+Rota	Método	Descrição
+/tabela_clientes	GET	Lista todos os clientes
+/registrar_novo_cliente	GET/POST	Cria novo cliente + usuário
+/editar_cliente/<id>	GET/POST	Edita dados do cliente
+/deleta_cliente/<id>	POST	Deleta cliente
+
+
+4.4 Gestão de Usuários
+
+Rota	Método	Descrição
+/tabela_utilizadores	GET	Lista todos os usuários
+/registrar_novo_utilizador	GET/POST	Cria novo usuário
+/editar_users<int:id>	GET/POST	Edita usuário
+/trocar_password/<id>	GET/POST	Altera senha de usuário
+/deleta_utilizador/<id>	POST	Deleta usuário
+
+
+4.5 Gestão de Animais
+
+Rota	Método	Descrição
+/tabela_animais	GET	Lista todos os animais
+/editar_animal/<id>	GET/POST	Edita animal
+/deleta_animal/<id>	POST	Deleta animal
+
+
+4.6 Gestão de Consultas
+
+Rota	Método	Descrição
+/tabela_consultas	GET	Lista todas as consultas
+/editar_consulta/<id>	GET/POST	Edita consulta
+/deleta_consulta/<id>	POST	Deleta consulta (admin)
+
+
+5. Segurança
+
+Apenas usuários logados podem acessar tabelas e CRUD.
+
+Role admin controla exclusão de consultas.
+
+Senhas atualmente armazenadas em texto simples (recomendado usar hashing em produção).

@@ -7,8 +7,6 @@
     <title>Clinica Veterinária</title>
 
     <link rel="stylesheet" href="/static/global/style.css">
-
-
 </head>
 
 <body>
@@ -21,19 +19,18 @@
 
                 {% if user_role == 'admin' or user_role == 'staff' %}
                 <li><a href="{{ url_for('registrar_novo_cliente') }}">Novo cliente</a></li>
-                
+
                 {% if user_role == 'admin' %}
-                    <li><a href="{{ url_for('registrar_novo_utilizador') }}">Novo utilizador</a></li>
-                    <li><a href="{{ url_for('tabela_utilizadores') }}">Utilizadores</a></li>
+                <li><a href="{{ url_for('registrar_novo_utilizador') }}">Novo utilizador</a></li>
+                <li><a href="{{ url_for('tabela_utilizadores') }}">Utilizadores</a></li>
                 {% endif %}
-                
+
                 <li><a href="{{ url_for('tabela_clientes') }}">Clientes</a></li>
                 <li><a href="{{ url_for('tabela_animais') }}">Animais</a></li>
                 <li><a href="{{ url_for('tabela_consultas') }}">Consultas</a></li>
                 <li><a href="{{ url_for('meus_dados') }}">Meus dados</a></li>
 
                 {% endif %}
-
 
                 <!-- CLIENTES -->
                 {% if user_role == 'cliente' %}
@@ -62,7 +59,7 @@
     <footer class="footer">
         <div class="footer-container">
             <ul class="footer-links">
-                
+
             </ul>
             <p class="footer-copy">© 2026 Clinica Veterinária
                 <br> Projeto de Python Avançado.
@@ -70,22 +67,12 @@
         </div>
     </footer>
 
-
-
     <script>
         function toggleMenu() {
             const nav = document.getElementById('nav-links');
             nav.classList.toggle('active');
         }
     </script>
-
-</body>
-
-</html>
-
-
-
-
 
 </body>
 
