@@ -27,10 +27,6 @@
                     <li><a href="{{ url_for('tabela_utilizadores') }}">Utilizadores</a></li>
                 {% endif %}
                 
-                {% if user_role == 'staff' %}    
-                    <li><a href="#">Adicionar animal</a></li>
-                    <li><a href="#">Marcar consulta</a></li>
-                {% endif %}
                 <li><a href="{{ url_for('tabela_clientes') }}">Clientes</a></li>
                 <li><a href="{{ url_for('tabela_animais') }}">Animais</a></li>
                 <li><a href="{{ url_for('tabela_consultas') }}">Consultas</a></li>
@@ -41,8 +37,7 @@
 
                 <!-- CLIENTES -->
                 {% if user_role == 'cliente' %}
-                <li><a href="#">Meus animais</a></li>
-                <li><a href="#">Minhas consultas</a></li>
+                <li><a href="{{ url_for('minha_area') }}">Minha area</a></li>
                 <li><a href="{{ url_for('meus_dados') }}">Meus dados</a></li>
                 {% endif %}
                 <section class="btn-logout">

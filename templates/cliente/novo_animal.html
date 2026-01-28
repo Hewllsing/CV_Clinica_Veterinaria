@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='global/editar_clientes.css') }}">
+
+<div class="clientes-form">
+
+    <div class="form-container">
+        <h1>Novo Animal</h1>
+
+        <form method="POST">
+
+            <label for="nome">Nome do Animal</label>
+            <input type="text" name="nome" id="nome" required>
+
+            <label for="especie">Espécie</label>
+            <input type="text" name="especie" id="especie" placeholder="Ex: Cão, Gato" required>
+
+            <label for="raca">Raça</label>
+            <input type="text" name="raca" id="raca">
+
+            <label for="idade">Idade</label>
+            <input type="number" name="idade" id="idade" min="0">
+
+            <label for="idade">Data de nascimento</label>
+            <input type="number" name="data_nascimento" id="data_nascimento" min="0">
+
+            </select>
+            
+            <button type="submit">Guardar Animal</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

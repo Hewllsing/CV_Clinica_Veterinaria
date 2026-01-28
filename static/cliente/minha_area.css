@@ -1,0 +1,81 @@
+/* =========================
+   MINHA ÁREA - ESTILO
+   ========================= */
+
+.minha-area {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 1rem;
+    font-family: Arial, sans-serif;
+}
+
+/* Título principal */
+.minha-area h1 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+/* Card container */
+.minha-area .card {
+    background-color: #fff;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Título do card */
+.minha-area .card h2 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.3rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.3rem;
+}
+
+/* Parágrafos dentro do card */
+.minha-area .card p {
+    margin-bottom: 0.7rem;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* Lista de animais e consultas */
+.minha-area .card .lista {
+    list-style: none;
+    padding-left: 0;
+}
+
+.minha-area .card .lista li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+}
+
+.minha-area .card .lista li:last-child {
+    border-bottom: none;
+}
+
+/* Mensagem quando não há dados */
+.minha-area .card p {
+    font-style: italic;
+    color: #888;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .minha-area {
+        padding: 0.5rem;
+    }
+
+    .minha-area .card h2 {
+        font-size: 1.1rem;
+    }
+
+    .minha-area .card p,
+    .minha-area .card .lista li {
+        font-size: 0.9rem;
+    }
+}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='global/editar_clientes.css') }}">
+
+<div class="clientes-form">
+    <div class="form-container">
+        <h1>Nova Consulta</h1>
+
+        <form method="POST">
+
+            <label for="animal_id">Animal</label>
+            <select class="form-dropdown" name="animal_id" id="animal_id" required>
+                <option value="">Selecione o animal</option>
+                {% for animal in animais %}
+                <option value="{{ animal.id }}">
+                    {{ animal.nome }} ({{ animal.especie }})
+                </option>
+                {% endfor %}
+            </select>
+
+            <label for="data_hora">Data e Hora</label>
+            <input type="datetime-local" name="data_hora" id="data_hora" required>
+
+            <label for="motivo">Motivo da Consulta</label>
+            <input type="text" name="motivo" id="motivo" required>
+
+            <label for="notas">Notas</label>
+            <textarea class="txt-area" name="notas" id="notas" rows="4"></textarea>
+
+            <button type="submit">Guardar Consulta</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

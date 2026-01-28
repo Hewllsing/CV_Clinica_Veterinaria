@@ -4,7 +4,7 @@
 
 .clientes-form {
     max-width: 600px;
-    margin-top: 2rem;
+    margin: 2rem auto;
     background-color: #fff;
     padding: 2rem;
     border-radius: 8px;
@@ -61,6 +61,7 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin: 6px 0;
 }
 
 .clientes-form button:hover {
@@ -76,4 +77,13 @@
 
 .clientes-form a:hover {
     text-decoration: underline;
+}
+
+/* Pagina nova_consulta */
+.form-dropdown {
+    width: auto;
+    height: 1.5rem;
+}
+.txt-area { 
+    width: 100%;
 }

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='cliente/minha_area.css') }}">
+
+<div class="minha-area">
+
+    <h1>Minha Área</h1>
+
+    <!-- DADOS DO UTILIZADOR -->
+    <section class="card">
+        <h2>Meus Dados</h2>
+
+        <p><strong>Nome:</strong> {{ cliente['nome'] }}</p>
+        <p><strong>Email:</strong> {{ cliente['email'] }}</p>
+        <p><strong>Telefone:</strong> {{ cliente['telefone'] }}</p>
+        <p><strong>Morada:</strong> {{ cliente['morada'] }}</p>
+
+    </section>
+
+    <!-- ANIMAIS DO UTILIZADOR -->
+    <section class="card">
+        <h2>Meus Animais</h2>
+
+        {% if animais %}
+            <ul class="lista">
+                {% for animal in animais %}
+                    <li>
+                        <strong>{{ animal.nome }}</strong> — 
+                        {{ animal.especie }} ({{ animal.raca }})
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Não possui animais registados.</p>
+        {% endif %}
+    </section>
+
+    <!-- CONSULTAS -->
+    <section class="card">
+        <h2>Minhas Consultas</h2>
+
+        {% if consultas %}
+            <ul class="lista">
+                {% for c in consultas %}
+                    <li>
+                        <strong>{{ c.data_hora }}</strong> — 
+                        {{ c.motivo }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Não possui consultas marcadas.</p>
+        {% endif %}
+    </section>
+
+</div>
+
+{% endblock %}
