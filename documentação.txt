@@ -18,29 +18,7 @@ O backend é feito em Python com Flask e o banco de dados em MySQL.
 
 
 2. Estrutura de Pastas
-clinica_veterinaria/
-│
-├── app.py                    # Código principal do Flask
-├── templates/                # Templates HTML (Jinja2)
-│   ├── base.html
-│   ├── users/
-│   │   ├── login.html
-│   │   ├── meus_dados.html
-│   │   └── trocar_password.html
-│   ├── staff/
-│   │   ├── tabela_clientes.html
-│   │   ├── tabela_animais.html
-│   │   └── editar_animais.html
-│   ├── admin/
-│   │   ├── tabela_utilizadores.html
-│   │   ├── registrar_novo_utilizador.html
-│   │   └── editar_users.html
-│   └── cliente/
-│       ├── minha_area.html
-│       ├── nova_consulta.html
-│       └── novo_animal.html
-│
-└── static/                   # Arquivos CSS, JS e imagens
+(FileTree_Clinica_Veterinaria.md)
 
 
 3. Modelos de Dados (MySQL)
