@@ -17,7 +17,7 @@ body {
 main {
     height: auto;
     min-height: 80vh;
-    padding-bottom: 150px;  /** padding para o footer **/
+    padding: 50px 0 150px 0;  /** padding para o footer **/
     background-image: url(../imgs/auce.jpg)
 }
 /* Section Navbar */
