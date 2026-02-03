@@ -3,6 +3,7 @@
    ========================= */
 
 .perfil-usuario {
+    height: auto;
     max-width: 500px;
     margin: 2rem auto;
     background-color: #fff;

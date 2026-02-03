@@ -12,6 +12,13 @@ html, body {
 
 body {
     background-color: #f4f4f4;
+    
+}
+main {
+    height: auto;
+    min-height: 80vh;
+    padding-bottom: 150px;  /** padding para o footer **/
+    background-image: url(../imgs/auce.jpg)
 }
 /* Section Navbar */
 .sec-navbar {
@@ -138,6 +145,7 @@ body {
     bottom: 0;       /* na parte inferior */
     left: 0;         /* do lado esquerdo */
     width: 100%;     /* ocupa toda a largura */
+    height: 100px;
     z-index: 1000;   /* garante que fique acima de outros elementos */
 
 }
