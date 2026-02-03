@@ -99,6 +99,18 @@ def logout():
 # ---------------------------------------------------
 # MINHA ÁREA (CLIENTE)
 # ---------------------------------------------------
+@app.route("/home")
+def home():
+    user_id = session.get("user_id")
+    if not user_id:
+        flash("Faça login primeiro!")
+        return redirect(url_for("login"))
+    
+    return render_template("global/home.html")
+
+# ---------------------------------------------------
+# MINHA ÁREA (CLIENTE)
+# ---------------------------------------------------
 @app.route("/minha_area")
 def minha_area():
     """
@@ -493,7 +505,7 @@ def deleta_consulta(id):
 # ---------------------------------------------------
 # EDITAR DADOS (USUÁRIO, CLIENTE, ANIMAL, CONSULTA)
 # ---------------------------------------------------
-@app.route("/editar_users<int:id>", methods=["GET","POST"])
+@app.route("/editar_utilizador/<int:id>", methods=["GET","POST"])
 def editar_users(id):
     """
     Edita dados de um usuário
@@ -508,12 +520,12 @@ def editar_users(id):
         username = request.form["username"]
         role = request.form["role"]
         
-        cursor.execute("UPDATE login SET username=%s, role=%s WHERE id=%s", (username, role, id))
+        cursor.execute("UPDATE users SET username=%s, role=%s WHERE id=%s", (username, role, id))
         
         cnx.commit()
         cursor.close()
         cnx.close()
-        return redirect("/")
+        return redirect("tabela_utilizadores")
 
     cursor.execute("SELECT id, username, role FROM users WHERE id=%s", (id,))
     usuarios = cursor.fetchone()

@@ -1,62 +1,55 @@
-<!doctype html>
-<html lang="pt">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="utf-8">
+{% block content %}
 
-    <!-- O título da página é dinâmico e recebido pelo Flask -->
-    <title>Registrar cliente</title> <!-- Para ficar dinamico {{ titulo }} -->
+<!-- O título da página é dinâmico e recebido pelo Flask -->
+<title>Registrar cliente</title> <!-- Para ficar dinamico {{ titulo }} -->
 
+<!-- Link para o CSS -->
+<link rel="stylesheet" href="{{ url_for('static', filename='users/login.css') }}">
 
-    <!-- Link para o CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='users/login.css') }}">
-</head>
+<div class="registrar-usuario-form">
 
-<body>
-    <div class="registrar-usuario-form">
+    <h1>Registrar cliente</h1>
 
-        <h1>Registrar cliente</h1>
+    {% with msgs = get_flashed_messages() %}
+    {% if msgs %}
+    <ul>
+        {% for m in msgs %}
+        <li> {{ m }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
 
-        {% with msgs = get_flashed_messages() %}
-        {% if msgs %}
-        <ul>
-            {% for m in msgs %}
-            <li> {{ m }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
+    <form method="post">
 
-        <form method="post">
+        <p>
+            Nome:<br>
+            <input type="text" name="nome" required value="{{ cliente.nome if cliente else '' }}">
+        </p>
 
-            <p>
-                Nome:<br>
-                <input type="text" name="nome" required value="{{ cliente.nome if cliente else '' }}">
-            </p>
-
-            <p>
-                E-mail:<br>
-                <input type="text" name="email" required>
-            </p>
-
-            
-            <p>
-                Telefone:<br>
-                <input type="tel" name="telefone" required>
-            </p>
-
-            <p>
-                Morada:<br>
-                <input type="text" name="morada" required>
-            </p>
-
-            <button type="submit">Cadastrar</button>
-            <a href="/">Cancelar</a>
-
-        </form>
-    </div>
+        <p>
+            E-mail:<br>
+            <input type="text" name="email" required>
+        </p>
 
 
-</body>
+        <p>
+            Telefone:<br>
+            <input type="tel" name="telefone" required>
+        </p>
 
-</html>
+        <p>
+            Morada:<br>
+            <input type="text" name="morada" required>
+        </p>
+
+        <button type="submit">Cadastrar</button>
+        <a href="{{ url_for( 'tabela_clientes' ) }}">Cancelar</a>
+
+    </form>
+</div>
+
+
+{% endblock %}
