@@ -1,121 +1,102 @@
-Documentação do Sistema Clínica Veterinária
+DOCUMENTAÇÃO DO SISTEMA – CLÍNICA VETERINÁRIA
 
-1. Visão Geral
+1. VISÃO GERAL
 
-O sistema permite gerenciar uma clínica veterinária, contemplando:
+O sistema Clínica Veterinária foi desenvolvido para auxiliar no gerenciamento completo de uma clínica veterinária,
+permitindo o controle de clientes, animais, consultas e utilizadores.
 
-Cadastro de clientes e seus animais
+Funcionalidades principais:
+- Cadastro e gestão de clientes
+- Registro de animais
+- Agendamento e controle de consultas veterinárias
+- Gestão de utilizadores (admin, staff, cliente)
+- Área do cliente para visualização de dados
+- Operações CRUD completas
 
-Registro de consultas veterinárias
-
-Gestão de usuários com diferentes roles (admin, staff, cliente)
-
-Área do cliente para visualizar seus animais e consultas
-
-Funcionalidades CRUD completas (Create, Read, Update, Delete)
-
-O backend é feito em Python com Flask e o banco de dados em MySQL.
-
-
-2. Estrutura de Pastas
-(FileTree_Clinica_Veterinaria.md)
+Tecnologias utilizadas:
+- Backend: Python + Flask
+- Base de dados: MySQL
 
 
-3. Modelos de Dados (MySQL)
+2. ESTRUTURA DE PASTAS
 
-Tabela users
-Coluna	Tipo	Descrição
-id	INT PK	ID do usuário
-username	VARCHAR	Nome de usuário
-password	VARCHAR	Senha
-role	VARCHAR	Papel: admin, staff, cliente
-cliente_id	INT FK	ID do cliente (para clientes)
-created_at	DATETIME	Data de criação
-
-Tabela clientes
-Coluna	Tipo	Descrição
-id	INT PK	ID do cliente
-nome	VARCHAR	Nome do cliente
-email	VARCHAR	Email do cliente
-telefone	VARCHAR	Telefone
-morada	VARCHAR	Morada do cliente
-created_at	DATETIME	Data de cadastro
-
-Tabela animais
-Coluna	Tipo	Descrição
-id	INT PK	ID do animal
-cliente_id	INT FK	ID do cliente proprietário
-nome	VARCHAR	Nome do animal
-especie	VARCHAR	Espécie
-raca	VARCHAR	Raça
-data_nascimento	DATE	Data de nascimento
-
-Tabela consultas
-Coluna	Tipo	Descrição
-id	INT PK	ID da consulta
-animal_id	INT FK	Animal atendido
-data_hora	DATETIME	Data e hora da consulta
-motivo	TEXT	Motivo da consulta
-notas	TEXT	Observações do veterinário
-created_at	DATETIME	Data de registro
+O projeto segue uma estrutura organizada e modular.
+Consulte o arquivo FileTree_Clinica_Veterinaria.md para detalhes completos.
 
 
-4. Rotas e Funcionalidades
-4.1 Autenticação
+3. MODELOS DE DADOS (MYSQL)
 
-Rota	Método	Descrição
-/login	GET/POST	Login de usuário
-/logout	GET	Logout e limpeza da sessão
-/meus_dados	GET	Mostra informações do usuário logado
+TABELA: users
+- id (INT, PK): Identificador do utilizador
+- username (VARCHAR): Nome de utilizador
+- password (VARCHAR): Palavra-passe
+- role (VARCHAR): Perfil do utilizador
+- cliente_id (INT, FK): Cliente associado
+- created_at (DATETIME): Data de criação
 
+TABELA: clientes
+- id (INT, PK): Identificador do cliente
+- nome (VARCHAR): Nome
+- email (VARCHAR): Email
+- telefone (VARCHAR): Telefone
+- morada (VARCHAR): Morada
+- created_at (DATETIME): Data de cadastro
 
-4.2 Área do Cliente
+TABELA: animais
+- id (INT, PK): Identificador do animal
+- cliente_id (INT, FK): Dono do animal
+- nome (VARCHAR): Nome
+- especie (VARCHAR): Espécie
+- raca (VARCHAR): Raça
+- data_nascimento (DATE): Data de nascimento
 
-Rota	Método	Descrição
-/minha_area	GET	Mostra info do usuário, cliente, animais e consultas
-/clientes/<id>/novo_animal	GET/POST	Registra um novo animal para o cliente
-/clientes/<id>/nova_consulta	GET/POST	Registra uma nova consulta para os animais do cliente
-
-
-4.3 Gestão de Clientes
-
-Rota	Método	Descrição
-/tabela_clientes	GET	Lista todos os clientes
-/registrar_novo_cliente	GET/POST	Cria novo cliente + usuário
-/editar_cliente/<id>	GET/POST	Edita dados do cliente
-/deleta_cliente/<id>	POST	Deleta cliente
-
-
-4.4 Gestão de Usuários
-
-Rota	Método	Descrição
-/tabela_utilizadores	GET	Lista todos os usuários
-/registrar_novo_utilizador	GET/POST	Cria novo usuário
-/editar_users<int:id>	GET/POST	Edita usuário
-/trocar_password/<id>	GET/POST	Altera senha de usuário
-/deleta_utilizador/<id>	POST	Deleta usuário
-
-
-4.5 Gestão de Animais
-
-Rota	Método	Descrição
-/tabela_animais	GET	Lista todos os animais
-/editar_animal/<id>	GET/POST	Edita animal
-/deleta_animal/<id>	POST	Deleta animal
+TABELA: consultas
+- id (INT, PK): Identificador da consulta
+- animal_id (INT, FK): Animal atendido
+- data_hora (DATETIME): Data e hora
+- motivo (TEXT): Motivo da consulta
+- notas (TEXT): Observações
+- created_at (DATETIME): Data de criação
 
 
-4.6 Gestão de Consultas
+4. ROTAS E FUNCIONALIDADES
 
-Rota	Método	Descrição
-/tabela_consultas	GET	Lista todas as consultas
-/editar_consulta/<id>	GET/POST	Edita consulta
-/deleta_consulta/<id>	POST	Deleta consulta (admin)
+4.1 AUTENTICAÇÃO
+/login           GET/POST   Login do utilizador
+/logout          GET        Logout do sistema
+/meus_dados      GET        Dados do utilizador logado
+
+4.2 ÁREA DO CLIENTE
+/minha_area                          GET
+/clientes/<id>/novo_animal           GET/POST
+/clientes/<id>/nova_consulta         GET/POST
+
+4.3 GESTÃO DE CLIENTES
+/tabela_clientes                     GET
+/registrar_novo_cliente              GET/POST
+/editar_cliente/<id>                 GET/POST
+/deleta_cliente/<id>                 POST
+
+4.4 GESTÃO DE UTILIZADORES
+/tabela_utilizadores                 GET
+/registrar_novo_utilizador            GET/POST
+/editar_users/<id>                   GET/POST
+/trocar_password/<id>                GET/POST
+/deleta_utilizador/<id>              POST
+
+4.5 GESTÃO DE ANIMAIS
+/tabela_animais                      GET
+/editar_animal/<id>                  GET/POST
+/deleta_animal/<id>                  POST
+
+4.6 GESTÃO DE CONSULTAS
+/tabela_consultas                    GET
+/editar_consulta/<id>                GET/POST
+/deleta_consulta/<id>                POST
 
 
-5. Segurança
+5. SEGURANÇA
 
-Apenas usuários logados podem acessar tabelas e CRUD.
-
-Role admin controla exclusão de consultas.
-
-Senhas atualmente armazenadas em texto simples (recomendado usar hashing em produção).
+- Apenas utilizadores autenticados podem acessar o sistema
+- Algumas ações são restritas por role
+- Senhas armazenadas em texto simples (recomendado hashing em produção)

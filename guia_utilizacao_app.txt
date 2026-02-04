@@ -1,0 +1,70 @@
+GUIA DE UTILIZAÇÃO – CLÍNICA VETERINÁRIA
+
+1.  INTRODUÇÃO Esta aplicação web tem como objetivo gerir uma clínica
+    veterinária, permitindo o controlo de utilizadores, clientes,
+    animais e consultas.
+
+A aplicação foi desenvolvida em Flask (Python) com base de dados MySQL.
+
+  --------------------------------------------------
+  2. ACESSO À APLICAÇÃO
+  --------------------------------------------------
+  1. Inicie o servidor executando: python app.py
+
+  2. Abra o navegador e aceda a:
+  http://127.0.0.1:5000
+
+  3. Será redirecionado para a página de login.
+  --------------------------------------------------
+
+3. LOGIN
+
+-   Introduza o username e password fornecidos.
+-   Após login, o sistema identifica o tipo de utilizador:
+    -   Admin
+    -   Staff
+    -   Cliente
+
+Cada perfil tem permissões diferentes dentro da aplicação.
+
+  -------------------------
+  4. PERFIS DE UTILIZADOR
+  -------------------------
+
+ADMIN: - Gerir utilizadores (listar, editar e apagar) - Aceder a todas
+as áreas do sistema
+
+STAFF: - Registar clientes - Registar animais - Criar consultas - Editar
+dados de clientes
+
+CLIENTE: - Aceder à sua área pessoal - Visualizar os seus dados - Ver os
+seus animais registados - Consultar histórico de consultas
+
+  --------------------------------------------------
+  5. MINHA ÁREA (CLIENTE)
+  --------------------------------------------------
+  Na área do cliente é possível: - Ver dados
+  pessoais - Ver lista de animais associados - Ver
+  consultas realizadas
+
+  --------------------------------------------------
+
+6. LOGOUT
+
+-   Para sair da aplicação, clique em “Logout”
+-   A sessão será encerrada com segurança
+
+  --------------------------------------------------
+  7. SEGURANÇA
+  --------------------------------------------------
+  - Todas as páginas protegidas exigem login - O
+  acesso é controlado através de sessões -
+  Permissões são baseadas no perfil do utilizador
+
+  --------------------------------------------------
+
+8. CONSIDERAÇÕES FINAIS
+
+Esta aplicação permite uma gestão simples e eficaz de uma clínica
+veterinária, centralizando informações importantes e garantindo controlo
+de acessos.
