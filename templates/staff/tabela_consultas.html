@@ -37,7 +37,7 @@
                 <a href="/editar_consulta/{{ c.id }}">Editar</a>
 
                     {% if session["user_role"] == "admin" %}
-                    <form action="/deleta_consulta/{{ c.id }}" method="post">
+                    <form action="/deleta_consulta/{{ c.id }}" method="post" onsubmit="return confirmarApagar();"> 
                         <button type="submit" class="btn-apagar">Apagar</button>
                     </form>
                     {% endif %}

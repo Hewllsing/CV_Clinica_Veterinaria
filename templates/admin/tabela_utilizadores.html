@@ -34,7 +34,7 @@
 
                     <a href="/editar_utilizador/{{ u.id }}">Editar</a>
 
-                    <form action="/deleta_utilizador/{{ u.id }}" method="post">
+                    <form action="/deleta_utilizador/{{ u.id }}" method="post" onsubmit="return confirmarApagar();">
                         <button type="submit" class="btn-apagar">Apagar</button>
                     </form>
 

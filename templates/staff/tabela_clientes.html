@@ -49,7 +49,7 @@
                         {% endif %}
 
                     {% if session["user_role"] == "admin" %}
-                    <form action="/deleta_cliente/{{ c.id }}" method="post">
+                    <form action="/deleta_cliente/{{ c.id }}" method="post" onsubmit="return confirmarApagar();">
                         <button type="submit" class="btn-apagar">Apagar</button>
                     </form>
                     {% endif %}
