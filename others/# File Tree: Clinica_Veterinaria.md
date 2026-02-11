@@ -1,12 +1,14 @@
 # File Tree: Clinica_Veterinaria
 
-**Generated:** 1/30/2026, 2:06:56 PM
+**Generated:** 2/11/2026, 9:49:53 AM
 **Root Path:** `/Users/formando/Desktop/Clinica_Veterinaria`
 
 ```
 ├── 📁 others
 │   ├── 📕 FBG.10.DP_Modelo_Atividade_0125_Prod_10794.pdf
-│   └── 📄 efa0125_25_vet_clinic.sql
+│   ├── 📕 Projeto_ Python Avançado UFCD10794.docx.pdf
+│   ├── 📄 efa0125_25_vet_clinic.sql
+│   └── 📝 fileTree_clinica_veterinaria.md
 ├── 📁 static
 │   ├── 📁 admin
 │   ├── 📁 cliente
@@ -17,6 +19,13 @@
 │   │   ├── 🎨 editar_clientes.css
 │   │   ├── 🎨 style.css
 │   │   └── 🎨 tabelas_form.css
+│   ├── 📁 imgs
+│   │   ├── 🖼️ auce.jpg
+│   │   ├── 🖼️ cachorro-loiro.jpg
+│   │   ├── 🖼️ cachorro.jpg
+│   │   ├── 🖼️ gatinhos.jpg
+│   │   ├── 🖼️ leao.jpg
+│   │   └── 🖼️ urso.jpg
 │   ├── 📁 staff
 │   └── 📁 users
 │       └── 🎨 login.css
@@ -31,6 +40,8 @@
 │   │   ├── 🌐 minha_conta.html
 │   │   ├── 🌐 nova_consulta.html
 │   │   └── 🌐 novo_animal.html
+│   ├── 📁 global
+│   │   └── 🌐 home.html
 │   ├── 📁 staff
 │   │   ├── 🌐 editar_animais.html
 │   │   ├── 🌐 editar_consulta.html
@@ -44,7 +55,9 @@
 │   │   └── 🌐 trocar_password.html
 │   └── 🌐 base.html
 ├── 🐍 app.py
-└── 📄 documentação.txt
+├── 📄 documentação.txt
+├── 📄 guia_utilizacao_app.txt
+└── 📄 requerimentos.txt
 ```
 
 ---
